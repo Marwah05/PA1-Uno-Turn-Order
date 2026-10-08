@@ -8,4 +8,8 @@ include_directories(.)
 add_executable(PA1_Uno_Turn_Order
         main.cpp
         Player.h
-        Stack.h)
+        Stack.h
+        ArrayList.h
+        Data.h
+        List.h
+        LinkedList.h)
