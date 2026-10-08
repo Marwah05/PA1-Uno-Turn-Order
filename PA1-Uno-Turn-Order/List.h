@@ -23,7 +23,7 @@ public:
 
     // For Uno Turn Order
     virtual void addAnywhere(int position, T* value) = 0;
-    virtual void deleteAnywhere(int position, T* value) = 0;
+    virtual void deleteAnywhere(int position) = 0;
     virtual void reverse() = 0;
     virtual void concat(List<T>* other) = 0;
 };

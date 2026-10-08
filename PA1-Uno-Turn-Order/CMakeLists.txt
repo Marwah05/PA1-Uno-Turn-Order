@@ -12,4 +12,5 @@ add_executable(PA1_Uno_Turn_Order
         ArrayList.h
         Data.h
         List.h
-        LinkedList.h)
+        LinkedList.h
+        Card.h)

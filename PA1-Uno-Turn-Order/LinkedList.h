@@ -55,6 +55,105 @@ public:
         return head_->data;
     }
 
+    void deleteFront() override {
+        if (head_ == nullptr) {
+            std::cout << "LinkedList is empty." << std::endl;
+            return;
+        }
+        Node<T>* doomed = head_;
+        head_ = head_->next;
+        if (head_ == nullptr) {
+            tail_ = nullptr;
+        }
+        delete doomed->data;
+        delete doomed;
+        --size_;
+    }
+
+    void addAnywhere(int position, T* value) override {
+        if (position < 0 || position > size_) {
+            std::cout << "Position out of bounds." << std::endl;
+            delete value;
+            return;
+        }
+        if (position == 0) {
+            addFront(value);
+            return;
+        }
+        if (position == size_) {
+            addBack(value);
+            return;
+        }
+        Node<T>* current = head_;
+        for (int i = 0; i < position -1; ++i) {
+            current = current->next;
+        }
+        Node<T>* fresh = new Node<T>(value);
+        fresh->next = current->next;
+        current->next = fresh;
+        ++size_;
+    }
+
+    void deleteAnywhere(int position) override {
+        if (position < 0 || position >= size_) {
+            std::cout << "Position out of bounds." << std::endl;
+            return;
+        }
+        if (position == 0) {
+            deleteFront();
+            return;
+        }
+        Node<T>* current = head_;
+        for (int i = 0; i < position -1; ++i) {
+            current = current->next;
+        }
+        Node<T>* doomed = current->next;
+        current->next = doomed->next;
+        if (doomed == tail_) {
+            tail_ = current;
+        }
+        delete doomed->data;
+        delete doomed;
+        --size_;
+    }
+
+    void reverse() override {
+        if (size_ <= 1) return;
+        Node<T>* prev = nullptr;
+        Node<T>* current = head_;
+        Node<T>* nextNode = nullptr;
+        tail_ = head_;
+        while (current != nullptr) {
+            nextNode = current->next;
+            current->next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        head_ = prev;
+    }
+
+    void concat(List<T>* other) override {
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+        if (!otherList) {
+            std::cout << "There was a mismatch in concat." << std::endl;
+            return;
+        }
+        if (otherList->isEmpty()) return;
+
+        if (isEmpty()) {
+            head_ = otherList->head_;
+            tail_ = otherList->tail_;
+        } else {
+            tail_->next = otherList->head_;
+            tail_ = otherList->tail_;
+        }
+        size_ += otherList->size_;
+        otherList->head_ = nullptr;
+        otherList->tail_ = nullptr;
+        otherList->size_ = 0;
+    }
+
+
     bool isEmpty() const override {
         return head_ == nullptr;
     }
