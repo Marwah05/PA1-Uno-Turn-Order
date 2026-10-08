@@ -42,6 +42,67 @@ public:
         --size_;
     }
 
+    void addAnywhere(int position, T* value) override {
+        if (position < 0 || position > size_) {
+            std::cout << "Invalid position." << std::endl;
+            delete value;
+            return;
+        }
+        if (size_ >= CAPACITY) {
+            std::cout << "ArrayList is full." << std::endl;
+            delete value;
+            return;
+        }
+        for (int i = size_; i > 0; --i) {
+            data_[i] = data_[i - 1];
+        }
+        data_[position] = value;
+        ++size_;
+    }
+
+    void deleteAnywhere(int position) override {
+        if (position < 0 || position >= size_) {
+            std::cout << "Invalid position." << std::endl;
+            return;
+        }
+        delete data_[position];
+        for (int i = position; i < size_ - 1; ++i) {
+            data_[i] = data_[i + 1];
+        }
+        data_[size_ - 1] = nullptr;
+        --size_;
+    }
+
+    void reverse() override {
+        if (size_ <= 1) return;
+        int left = 0;
+        int right = size_ - 1;
+        while (left < right) {
+            T* temp = data_[left];
+            data_[left] = data_[right];
+            data_[right] = temp;
+            ++left;
+            --right;
+        }
+    }
+
+    void concat(List<T>* other) override {
+        ArrayList<T>* otherList = dynamic_cast<ArrayList<T>* >(other);
+        if (!otherList) {
+            std::cout << "There is a mismatch in concat." << std::endl;
+            return;
+        }
+        if (size_ + otherList->size_ > CAPACITY) {
+            std::cout << "Not enough capacity for a concat." << std::endl;
+            return;
+        }
+        for (int i = 0; i < otherList->size_; ++i) {
+            data_[size_++] = otherList->data_[i];
+            otherList->data_[i] = nullptr;
+        }
+        otherList->size_ = 0;
+    }
+
     T* getFront() const override {
         if (size_ == 0) {
             return nullptr;
