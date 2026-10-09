@@ -2,7 +2,20 @@
 // Created by marwa on 10/8/2026.
 //
 
-#ifndef PA1_UNO_TURN_ORDER_CARD_H
-#define PA1_UNO_TURN_ORDER_CARD_H
+#pragma once
+#include <ostream>
+#include <string>
 
-#endif //PA1_UNO_TURN_ORDER_CARD_H
+class Card {
+public:
+    Card(const std::string& color, const std::string& rank)
+        : color_(color), rank_(rank) {}
+
+    friend std::ostream& operator<<(std::ostream& out, const Card& card) {
+        return out << card.color_ << " " << card.rank_;
+    }
+
+private:
+    std::string color_;
+    std::string rank_;
+};

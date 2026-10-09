@@ -55,21 +55,6 @@ public:
         return head_->data;
     }
 
-    void deleteFront() override {
-        if (head_ == nullptr) {
-            std::cout << "LinkedList is empty." << std::endl;
-            return;
-        }
-        Node<T>* doomed = head_;
-        head_ = head_->next;
-        if (head_ == nullptr) {
-            tail_ = nullptr;
-        }
-        delete doomed->data;
-        delete doomed;
-        --size_;
-    }
-
     void addAnywhere(int position, T* value) override {
         if (position < 0 || position > size_) {
             std::cout << "Position out of bounds." << std::endl;
