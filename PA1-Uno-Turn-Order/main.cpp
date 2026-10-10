@@ -29,6 +29,42 @@ int main() {
 
     // ---- Part 2: your Uno scene goes below ----
 
+    std::cout << std::endl << "== Uno Turn Order Scene ==" << std::endl;
+    std::unique_ptr<List<Player>> table = makeList<Player>();
+    table->addBack(new Player(1, "John"));
+    table->addBack(new Player(2, "Manju"));
+    table->addBack(new Player(3, "Jesus"));
+    std::cout << "Starting table: ";
+    table->print();
+
+    table->addAnywhere(2, new Player(4, "LLoyd"));
+    std::cout << "LLoyd joins the table at position 2: ";
+    table->print();
+    std::cout << std::endl;
+
+    table->reverse();
+    std::cout << "After a reverse card is played: ";
+    table->print();
+    std::cout << std::endl;
+
+    table->deleteAnywhere(1);
+    std::cout << "After the player in position 1 runs out of cards: ";
+    table->print();
+    std::cout << std::endl;
+
+    std::unique_ptr<List<Player>> table2 = makeList<Player>();
+    table2->addBack(new Player(5, "Mufasa"));
+    table2->addBack(new Player(6, "Simba"));
+    table2->addBack(new Player(7, "Scar"));
+    std::cout << "Second table before performing concat: ";
+    table2->print();
+    std::cout << std::endl;
+
+    table->concat(table2.get());
+    std::cout << "First table after concat: ";
+    table->print();
+    std::cout << "Second table after concat: ";
+    table2->print();
 
     return 0;
 }

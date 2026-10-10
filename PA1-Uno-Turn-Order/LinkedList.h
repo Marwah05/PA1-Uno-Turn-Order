@@ -118,7 +118,7 @@ public:
     }
 
     void concat(List<T>* other) override {
-        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>*>(other);
         if (!otherList) {
             std::cout << "There was a mismatch in concat." << std::endl;
             return;

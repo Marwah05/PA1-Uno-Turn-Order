@@ -53,7 +53,7 @@ public:
             delete value;
             return;
         }
-        for (int i = size_; i > 0; --i) {
+        for (int i = size_; i > position; --i) {
             data_[i] = data_[i - 1];
         }
         data_[position] = value;
@@ -87,7 +87,7 @@ public:
     }
 
     void concat(List<T>* other) override {
-        ArrayList<T>* otherList = dynamic_cast<ArrayList<T>* >(other);
+        ArrayList<T>* otherList = dynamic_cast<ArrayList<T>*>(other);
         if (!otherList) {
             std::cout << "There is a mismatch in concat." << std::endl;
             return;
