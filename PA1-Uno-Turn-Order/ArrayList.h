@@ -89,7 +89,7 @@ public:
     void concat(List<T>* other) override {
         ArrayList<T>* otherList = dynamic_cast<ArrayList<T>*>(other);
         if (!otherList) {
-            std::cout << "There is a mismatch in concat." << std::endl;
+            std::cout << "There was a mismatch in concat." << std::endl;
             return;
         }
         if (size_ + otherList->size_ > CAPACITY) {
